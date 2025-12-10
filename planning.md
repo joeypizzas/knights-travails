@@ -19,6 +19,20 @@
 ## Given your inputs, what are the steps necessary to return the desired output?
 
 - knightMoves function:
-  - Takes two string parameters, in "0,0", "5,6" format.
+  - Takes two string parameters, in array 0,0, 5,6 format.
   - Returns shortest path to get from the first square to the second square, sharing all the moves the knight will make along the way.
-  - First step is to create a graph of all the valid moves that can be made from any one square.
+  - First step is to create a graph of all the valid moves that can be made from any one square. Use existing function to do this.
+  - Create empty queue.
+  - Create currentMove variable.
+  - Create moveCount variable and set it to 0.
+  - created 2d visited array and set each square to false.
+  - Push starting square param to queue with move count of 0. Use push to add moveCount to currentMove.
+  - set visited with starting square to true.
+  - While currentMove != target square param:
+    - Set currentMove to first item from queue.
+    - set visited of currentMove true.
+    - increment moveCount.
+    - const newMoves = list of moves from knightMoves set to currentMove.
+    - For of loop with move of NewMoves:
+      - If !visited move, then push move to queue while using push to add moveCount to each move.
+    - shift first queue item out of queue.
