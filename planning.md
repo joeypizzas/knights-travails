@@ -19,7 +19,7 @@
 ## Given your inputs, what are the steps necessary to return the desired output?
 
 - knightMoves function:
-  - Takes two string parameters, in array 0,0, 5,6 format.
+  - Takes two array parameters, in array 0,0, 5,6 format.
   - Returns shortest path to get from the first square to the second square, sharing all the moves the knight will make along the way.
   - First step is to create a graph of all the valid moves that can be made from any one square. Use existing function to do this.
   - Create empty queue.
