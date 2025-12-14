@@ -36,19 +36,59 @@ function knightMoves(startSquare, endSquare) {
 
   const queue = [];
   let currentMove;
-  let moveCount = 0;
 
   const visited = [];
   for (let r = 0; r < rows; r++) {
+    visited[r] = [];
     for (let c = 0; c < columns; c++) {
       visited[r][c] = false;
     }
   }
 
-  const parents = [];
+  const parent = [];
   for (let r = 0; r < rows; r++) {
+    parent[r] = [];
     for (let c = 0; c < columns; c++) {
-      parents[r][c] = [];
+      parent[r][c] = [];
     }
   }
+
+  // Moves from start to end square tracking parents to enable constructing shortest route
+  queue.push(startSquare);
+  while (JSON.stringify(currentMove) != JSON.stringify(endSquare)) {
+    currentMove = queue[0];
+    visited[currentMove[0]][currentMove[1]] = true;
+    const newMoves = knightMovesGraph[currentMove];
+    for (const move of newMoves) {
+      if (!visited[move[0]][move[1]]) {
+        queue.push(move);
+        parent[move[0]][move[1]] = currentMove;
+      }
+    }
+    queue.shift();
+  }
+
+  const route = [];
+  let nextRouteMove = endSquare;
+
+  // Contstructs route from end back to start square
+  while (nextRouteMove) {
+    route.push(nextRouteMove);
+    if (parent[nextRouteMove[0]][nextRouteMove[1]].length > 0) {
+      nextRouteMove = parent[nextRouteMove[0]][nextRouteMove[1]];
+    } else {
+      nextRouteMove = parent[nextRouteMove[0]][nextRouteMove[1]][0];
+    }
+  }
+
+  // Outputs number of moves and route to get there
+  route.reverse();
+  let result = `You made it in ${route.length} moves! Here's your path: \n`;
+  for (const move of route) {
+    result += move + `\n`;
+  }
+
+  return result;
 }
+
+console.log(knightMoves([0, 0], [7, 7]));
